@@ -122,7 +122,7 @@ export default function Home() {
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Je suis allé au cinéma."
+              placeholder="请输入法语内容，例如：Je suis allé au cinéma."
               className="w-full text-xl md:text-2xl font-medium text-black placeholder:text-neutral-200 bg-transparent focus:outline-none resize-none h-32"
               maxLength={100}
             />
