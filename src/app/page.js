@@ -45,69 +45,20 @@ export default function Home() {
     }
   };
 
-  // const renderInteractiveSentence = (sentence, keywords) => {
-  //   if (!keywords || keywords.length === 0) return sentence;
-  //   let parts = [sentence];
-
-  //   keywords.forEach((keyword) => {
-  //     if (!keyword.word) return;
-  //     const newParts = [];
-  //     parts.forEach((part) => {
-  //       if (typeof part !== "string") {
-  //         newParts.push(part);
-  //         return;
-  //       }
-  //       const regex = new RegExp(`(${keyword.word})`, "gi");
-  //       const split = part.split(regex);
-  //       split.forEach((s) => {
-  //         if (s.toLowerCase() === keyword.word.toLowerCase()) {
-  //           newParts.push(
-  //             <span
-  //               key={Math.random()}
-  //               onClick={() => setActiveWord(keyword)}
-  //               className="group relative cursor-pointer inline-block mx-1 align-middle"
-  //             >
-  //               <span className="px-2 py-0.5 font-bold text-black bg-neutral-100 rounded-md border border-neutral-200 transition-all duration-200 group-hover:bg-black group-hover:text-white group-hover:border-black">
-  //                 {s}
-  //               </span>
-  //             </span>,
-  //           );
-  //         } else {
-  //           if (s) newParts.push(<span key={Math.random()}>{s}</span>);
-  //         }
-  //       });
-  //     });
-  //     parts = newParts;
-  //   });
-  //   return <div className="leading-loose tracking-wide">{parts}</div>;
-  // };
   const renderInteractiveSentence = (sentence, keywords) => {
     if (!keywords || keywords.length === 0) return sentence;
-
-    //按字符串长度降序排序 (防止短词切断长词的 Substring Collision 问题)
-    const sortedKeywords = [...keywords].sort((a, b) => {
-      const lenA = a.word ? a.word.length : 0;
-      const lenB = b.word ? b.word.length : 0;
-      return lenB - lenA; // 长的排前面
-    });
-
     let parts = [sentence];
 
-    sortedKeywords.forEach((keyword) => {
+    keywords.forEach((keyword) => {
       if (!keyword.word) return;
-
       const newParts = [];
       parts.forEach((part) => {
-        // 如果不是纯字符串，直接跳过
         if (typeof part !== "string") {
           newParts.push(part);
           return;
         }
-
-        // 只有纯文本才会继续被正则切分
         const regex = new RegExp(`(${keyword.word})`, "gi");
         const split = part.split(regex);
-
         split.forEach((s) => {
           if (s.toLowerCase() === keyword.word.toLowerCase()) {
             newParts.push(
@@ -122,15 +73,15 @@ export default function Home() {
               </span>,
             );
           } else {
-            if (s) newParts.push(s);
+            if (s) newParts.push(<span key={Math.random()}>{s}</span>);
           }
         });
       });
       parts = newParts;
     });
-
     return <div className="leading-loose tracking-wide">{parts}</div>;
   };
+
   return (
     <div className="min-h-screen flex flex-col pb-20 font-sans selection:bg-black selection:text-white bg-white text-slate-900">
       <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-sm border-b border-neutral-100">
