@@ -98,7 +98,7 @@ export default function Home() {
 
       const newParts = [];
       parts.forEach((part) => {
-        // 如果已经是 React 组件，直接推入，不作处理
+        // 如果不是纯字符串，直接跳过
         if (typeof part !== "string") {
           newParts.push(part);
           return;
@@ -122,7 +122,7 @@ export default function Home() {
               </span>,
             );
           } else {
-            if (s) newParts.push(<span key={Math.random()}>{s}</span>);
+            if (s) newParts.push(s);
           }
         });
       });
