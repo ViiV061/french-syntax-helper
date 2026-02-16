@@ -73,7 +73,7 @@ export default function Home() {
               </span>,
             );
           } else {
-            if (s) newParts.push(<span key={Math.random()}>{s}</span>);
+            if (s) newParts.push(s);
           }
         });
       });
